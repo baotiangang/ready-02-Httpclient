@@ -1,3 +1,4 @@
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -24,19 +25,27 @@ public class MyTest {
         HttpGet httpGet = new HttpGet(url);
         try {
             //发送请求，使用创建的client对象
-            CloseableHttpResponse closeableHttpResponse = client.execute(httpGet);
+            CloseableHttpResponse response = client.execute(httpGet);
+
             //通过response 相应对象获取返回结果
-            String result = EntityUtils.toString(closeableHttpResponse.getEntity());
+            String result = EntityUtils.toString(response.getEntity());
+
             System.out.println("访问地址后，结果内容如下：" + result);
 
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
+            //关闭资源
             try {
                 client.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Test
+    public void testPost(){
+
     }
 }
